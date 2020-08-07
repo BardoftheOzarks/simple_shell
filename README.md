@@ -1,1 +1,5 @@
-# simple_shell your face is simple
+# simple_shell 
+
+Repository for Simple Shell project files
+
+your face is simple
