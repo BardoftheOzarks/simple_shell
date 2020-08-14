@@ -11,6 +11,41 @@
 * Return: size
 */
 
+/**
+
+char bin_func(char *txt)
+{
+    char *bin = "/bin/";
+    char *cmd;
+    int i = 0, j = 0;
+
+for (i != '\0')
+{
+
+}
+
+return (cmd);
+}
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int main()
 {
     int status = 1;
@@ -22,7 +57,6 @@ int main()
     int str = 0;
     pid_t pid;
 
-
 while (status == 1)
 {
     write(STDOUT_FILENO, prompt, 12);
@@ -30,12 +64,16 @@ while (status == 1)
     str = strlen(buf);
     buf[str - 1] = '\0';
     printf("%s", buf);
- 
+    
+
 pid = fork();
 
 if (pid == 0)
 {
-    arg[0] = "/bin";
+    arg[0] = "/bin/ls";
+    arg[1] = "-l";
+    arg[2] = "-a";
+    arg[3] = '\0';
     execve (buf, arg, envp);
 }
 else
@@ -83,7 +121,7 @@ if (feof(stdin))
     arg[0] = '\0';
     execve (buf, arg, envp);
 }
-
+arg = strtok(buf, ' ')
 if (strcmp (buf, "/bin/ls") == 0)
 {
     printf("%s", "exec");
