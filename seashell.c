@@ -1,40 +1,47 @@
 #include "cshell.h"
+#include <stdlib.h>
+#include <stdarg.h>
+#include <stdio.h>
+
+/**
+ * main - function
+ * description: print
+ * @ac: lists
+ * @av: stuff
+ * Return: size
+ */
 int main(void)
 {
-	char **av = malloc(sizeof(char *) * (ARG_MAX + 1));
-	char *buffer;
-	int test, i = 0;
+	int status = 1;
+	size_t size = 0;
+	char *buf = NULL;
+	char *arg[10];
+	char *envp[] = {(char *) "PATH=/bin", 0};
+	int str = 0;
 	pid_t pid;
-	size_t size;
 
-	if (!av)
-		perror("malloc");
 	while (1)
 	{
-		print("C-Shell$ ");
-		test = getline(&buffer, &size, stdin);/*write func _getline*/
-		if (test == -1 || _strcmp(buffer, "exit") == 0)
+		print("Sea-Shell$ ");
+		status = getline(&buf, &size, stdin);
+		if (status == -1 || _strcmp(buf, "exit") == 0)
 			break;
-		size = _strlen(buffer);
-		buffer[size - 1] = '\0';
-		av[i] = strtok(buffer, " "); /*write func _strtok*/
-		while (av[i] && i <= ARG_MAX)
-			av[++i] = strtok(NULL, " ");
-		av[i] = NULL;
+		str = strlen(buf);
+		buf[str - 1] = '\0';
 		pid = fork();
-		if (pid == 0)/*Child process*/
+		if (pid == 0)
 		{
-			if (execve(buffer, av, environ) == -1)
-				perror("execve");
+			arg[0] = "/bin/ls";
+			arg[1] = "-l";
+			arg[2] = "-a";
+			arg[3] = '\0';
+			execve (buf, arg, envp);
+			perror("execve");
 			exit(errno);
-		} else if (pid < 0)/*Error forking*/
-			perror("fork");
+		}
 		else
-			wait(NULL);
-		free(buffer);
-		free(av);
+			wait (NULL);
 	}
-	free(buffer);
-	free(av);
+	free(buf);
 	return (0);
 }
