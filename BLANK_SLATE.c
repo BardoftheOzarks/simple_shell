@@ -64,8 +64,8 @@ int main(int ac, char** av, char **env)
     char *arg[10];
     int str = 0;
     pid_t pid;
-    char *path;
-    char *fullcmd;
+    
+    
     (void)ac;
     (void)av;
     
@@ -75,22 +75,24 @@ while (status == 1)
     write(STDOUT_FILENO, prompt, 12);
     getline(&buf, &size, stdin);
     str = strlen(buf);
-    buf[str - 1] = '\0';    
+    buf[str - 1] = '\0';
+   
 
-printf("before fork");
-pid = fork();
-printf("after fork");
+    
+    pid = fork();
 
 if (pid == 0)
 {
-printf("child fork");
-    path = env_path(buf, env);
-    fullcmd = strcat(path, buf);
-    arg[0] = path; 
+
+    arg[0] = "/bin";
     arg[1] = '\0';
-    printf("%s", fullcmd);
-    execve (fullcmd, arg, env);
+
+    
+
+
+    execve (buf, arg, env);
     exit(0);
+
 }
 else
 {
@@ -122,20 +124,26 @@ if (feof(stdin))
 
 
 /**    
-*
-*
-*   if (fork () != 0)
-*    {
- *   wait(NULL);
-  *  }
-*
-  printf("%s", buf);
+
+
+   if (fork () != 0)
+    {
+       wait(NULL);
+    }
+
+    211printf("%s", buf);
   
       printf("%s", "FUCK");
     char *envp[] = {(char *) "PATH=/bin", 0};
     char *arg[10];
 
+    printf("%s", fullcmd);
+    printf("%s", buf);
 
+    path = env_path(buf, env);
+    fullcmd = strcat(path, buf);
+
+char *fullcmd = "/bin/ls";
 
 *else
 {
