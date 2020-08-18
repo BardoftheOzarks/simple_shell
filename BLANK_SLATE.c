@@ -12,21 +12,30 @@
 */
 
 /**
-
 char bin_func(char *txt)
 {
     char *bin = "/bin/";
     char *cmd;
-    int i = 0, j = 0;
+    int i = 0, j = 0, k = 0;
 
-for (i != '\0')
+while (i != 4)
 {
-
+cmd[i] = bin[j];
+i++;
+j++;
 }
+
+while (text[k] != '\0')
+{
+    cmd[i] = txt[k];
+    i++;
+    k++;
+}
+
+cmd[i + 1] = '\0';
 
 return (cmd);
 }
-
 */
 
 
@@ -46,35 +55,42 @@ return (cmd);
 
 
 
-int main()
+int main(int ac, char** av, char **env)
 {
     int status = 1;
     size_t size = 0;
     char *buf = NULL;
     char *prompt = "Sea-Shell>> ";
     char *arg[10];
-    char *envp[] = {(char *) "PATH=/bin", 0};
     int str = 0;
     pid_t pid;
+    char *path;
+    char *fullcmd;
+    (void)ac;
+    (void)av;
+    
 
 while (status == 1)
 {
     write(STDOUT_FILENO, prompt, 12);
     getline(&buf, &size, stdin);
     str = strlen(buf);
-    buf[str - 1] = '\0';
-    printf("%s", buf);
-    
+    buf[str - 1] = '\0';    
 
+printf("before fork");
 pid = fork();
+printf("after fork");
 
 if (pid == 0)
 {
-    arg[0] = "/bin/ls";
-    arg[1] = "-l";
-    arg[2] = "-a";
-    arg[3] = '\0';
-    execve (buf, arg, envp);
+printf("child fork");
+    path = env_path(buf, env);
+    fullcmd = strcat(path, buf);
+    arg[0] = path; 
+    arg[1] = '\0';
+    printf("%s", fullcmd);
+    execve (fullcmd, arg, env);
+    exit(0);
 }
 else
 {
@@ -85,7 +101,6 @@ else
 
 if (strcmp (buf, "exit") == 0 )
 {
-    printf("%s", "FUCK");
     free (buf);
     return (0);
 }
@@ -114,8 +129,14 @@ if (feof(stdin))
  *   wait(NULL);
   *  }
 *
+  printf("%s", buf);
+  
+      printf("%s", "FUCK");
     char *envp[] = {(char *) "PATH=/bin", 0};
     char *arg[10];
+
+
+
 *else
 {
     arg[0] = '\0';
@@ -127,6 +148,8 @@ if (strcmp (buf, "/bin/ls") == 0)
     printf("%s", "exec");
     execve (test, arg, envp);
 }  
+       char *envp[] = {(char *) "PATH=/bin", 0};
+   
    write(STDOUT_FILENO, buf, 1024);
 *   printf("%s", buf);
 *   printf("$>");
