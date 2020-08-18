@@ -5,10 +5,7 @@
 
 /**
  * main - function
- * description: print
- * @ac: lists
- * @av: stuff
- * Return: size
+ * Return: zero
  */
 int main(void)
 {
@@ -34,13 +31,13 @@ int main(void)
 			arg[0] = "/bin/ls";
 			arg[1] = "-l";
 			arg[2] = "-a";
-			arg[3] = '\0';
-			execve (buf, arg, envp);
+			arg[3] = NULL;
+			execve(arg[0], arg, envp);
 			perror("execve");
 			exit(errno);
 		}
 		else
-			wait (NULL);
+			wait(NULL);
 	}
 	free(buf);
 	return (0);

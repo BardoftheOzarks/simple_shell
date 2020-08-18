@@ -13,6 +13,7 @@ extern char **environ;
 int print(char *str);
 int _getline(char *buffer, size_t *n, char *src);
 int _strcmp(char *s1, char *s2);
+int _strncmp(char *s1, char *s2, int n);
 char *_strdup(char *str);
 int _strlen(char *str);
 #endif
