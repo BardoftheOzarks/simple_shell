@@ -9,9 +9,9 @@
  */
 int main(void)
 {
-	int status = 1;
-	size_t size = 0;
-	char *buf = NULL;
+	int status;
+	size_t size;
+	char *buf;
 	char *arg[10];
 	char *envp[] = {(char *) "PATH=/bin", 0};
 	int str = 0;
