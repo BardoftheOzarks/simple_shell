@@ -16,6 +16,8 @@ int _strcmp(char *s1, char *s2);
 int _strncmp(char *s1, char *s2, int n);
 char *_strdup(char *str);
 int _strlen(char *str);
+char *env_path(char *cmd);
+char **buffsplitter(char *str);
 #endif
 
 #ifndef ARG_MAX
