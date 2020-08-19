@@ -1,149 +1,43 @@
-#include "simple_shell.h"
-#include <stdlib.h>
-#include <stdarg.h>
-#include <stdio.h>
-
+#include "cshell.h"
 /**
-* main - function
-* description: print
-* @ac: lists
-* @av: stuff
-* Return: size
+* main - it's a shell. Live with it.
+* Return: always 0
 */
-
-
-
-
-
 int main(void)
 {
-    int status = 1;
-    size_t size = 0;
-    char *buf = NULL;
-    char *prompt = "Sea-Shell>> ";
-    char *arg[10];
-    int str = 0;
-    pid_t pid;
-    char *fullcmd;
-    char *slash = "/";
-    char **path;
-    char *cmd; 
-
-while (status == 1)
-{
-    write(STDOUT_FILENO, prompt, 12);
-    getline(&buf, &size, stdin);
-
-pid = fork();
-
-    str = strlen(buf);
-    buf[str - 1] = '\0';
-    path = buffsplitter(buf);
-    cmd = path[0];
-    path[0] = env_path(cmd);
-    
-          
-    fullcmd = strcat(path[0], slash);
-    fullcmd = strcat(fullcmd, cmd);
-    
-
-    if (pid == 0)
-    {
-        arg[0] = path[0];
-        arg[1] = '\0';
-        execve (fullcmd, arg, environ);
-        exit(0);
-    }
-    
-    else
-    {
-        wait (NULL);
-    }
+	int status, len, i;
+	size_t size = 0;
+	char *buf, *buffer, *fullcmd, *path;
+	char **av = malloc(sizeof(char *) * ARG_MAX);
+	pid_t pid;
 
 
-
-    if (strcmp (buf, "exit") == 0 )
-    {
-        free (buf);
-        return (0);
-    }
-
-    if (feof(stdin))
-    {
-        free (buf);
-        return(0);
-    }
-    continue;
+	while (1)
+	{
+		print("Sea-Shell$ ");
+		status = getline(&buf, &size, stdin);/*write _getline*/
+		if (status == -1 || _strcmp(buf, "exit") == 0)
+			break;
+		len = _strlen(buf);
+		buf[len - 1] = '\0';
+		buffer = malloc(sizeof(char) * len);
+		buffer = buf;
+		av[0] = strtok(buffer, " ");
+		for (i = 1; i < ARG_MAX; i++)
+			av[i] = strtok(NULL, " ");
+		av[i] = NULL;
+		path = env_path(av[0]);
+		fullcmd = strcat(path, "/"); /*write _strcat*/
+		fullcmd = strcat(fullcmd, av[0]);
+		pid = fork();
+		if (pid == 0)
+		{
+			av[0] = "Fuck this";
+			av[1] = NULL;
+			execve(fullcmd, av, environ);
+			exit(0);
+		} else
+			wait(NULL);
+	}
+	return (0);
 }
-return (0);
-}
-
-
-
-
-
-
-
-
-
-/**
-char bin_func(char *txt)
-{
-    char *bin = "/bin/";
-    char *cmd;
-    int i = 0, j = 0, k = 0;
-
-while (i != 4)
-{
-cmd[i] = bin[j];
-i++;
-j++;
-}
-
-while (text[k] != '\0')
-{
-    cmd[i] = txt[k];
-    i++;
-    k++;
-}
-
-cmd[i + 1] = '\0';
-
-return (cmd);
-}
-*/
-/**    
-   if (fork () != 0)
-    {
-       wait(NULL);
-    }
-
-    211printf("%s", buf);
-  
-      printf("%s", "FUCK");
-    char *envp[] = {(char *) "PATH=/bin", 0};
-    char *arg[10];
-
-    printf("%s", fullcmd);
-    printf("%s", buf);
-
-char *fullcmd = "/bin/ls";
-
-*else
-{
-    arg[0] = '\0';
-    execve (buf, arg, envp);
-}
-arg = strtok(buf, ' ')
-if (strcmp (buf, "/bin/ls") == 0)
-{
-    printf("%s", "exec");
-    execve (test, arg, envp);
-}  
-       char *envp[] = {(char *) "PATH=/bin", 0};
-   
-   write(STDOUT_FILENO, buf, 1024);
-*   printf("%s", buf);
-*   printf("$>");
-*/
-

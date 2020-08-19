@@ -1,6 +1,6 @@
 #include "cshell.h"
 /**
- * _strlen = gets length of a string
+ * _strlen - gets length of a string
  * @str: input string
  * Return: length of string
  */

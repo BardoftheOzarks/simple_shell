@@ -10,7 +10,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <fcntl.h>
-#include <unistd.h> 
+#include <unistd.h>
 
 char *env_path(char *cmd, char **env);
 
