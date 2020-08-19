@@ -1,81 +1,54 @@
 #include "cshell.h"
-#include <stdlib.h>
-#include <stdarg.h>
-#include <stdio.h>
-
 /**
-* main - function
-* description: print
-* @ac: lists
-* @av: stuff
-* Return: size
+* main - It's a shell!
+* Return: It doesn't!
 */
-
-
-
-
-
 int main(void)
 {
-    int status = 1;
-    size_t size = 0;
-    char *buf = NULL;
-    char *prompt = "Sea-Shell>> ";
-    char *arg[10];
-    int str = 0;
-    pid_t pid;
-    char *fullcmd;
-    char *slash = "/";
-    char **path;
-    char *cmd;
+	int status, len, i;
+	size_t size = 0;
+	char *buf, **av, *fullcmd, **path, *cmd;
+	pid_t pid;
 
-while (status == 1)
-{
-    write(STDOUT_FILENO, prompt, 12);
-    getline(&buf, &size, stdin);
+	while (1)
+	{
+		print("Sea-Shell$ ");
+		status = getline(&buf, &size, stdin);
+		if(status = -1 || _strcmp(buf, "exit") == 0)
+			break;
 
-pid = fork();
+		len = strlen(buf);
+		buf[len - 1] = '\0';
 
-    str = strlen(buf);
-    buf[str - 1] = '\0';
-    path = buffsplitter(buf);
-    cmd = path[0];
-    path[0] = env_path(cmd);
-    
-          
-    fullcmd = strcat(path[0], slash);
-    fullcmd = strcat(fullcmd, cmd);
-    
+		path = _strdup(strtok(buf, " ");
 
-    if (pid == 0)
-    {
-        arg[0] = path[0];
-        arg[1] = '\0';
-        execve (fullcmd, arg, environ);
-        exit(0);
-    }
-    
-    else
-    {
-        wait (NULL);
-    }
+		path[0] = env_path(cmd);
 
+		fullcmd = strcat(path[0], "/");
+		fullcmd = strcat(fullcmd, av[0]);
 
+		pid = fork();
+		if (pid == 0)
+		{
+			arg[0] = path[0];
+			arg[1] = '\0';
+			execve (fullcmd, arg, environ);
+			exit(0);
+		} else
+			wait (NULL);
+		if (strcmp (buf, "exit") == 0 )
+		{
+			free (buf);
+			return (0);
+		}
 
-    if (strcmp (buf, "exit") == 0 )
-    {
-        free (buf);
-        return (0);
-    }
-
-    if (feof(stdin))
-    {
-        free (buf);
-        return(0);
-    }
-    continue;
-}
-return (0);
+		if (feof(stdin))
+		{
+			free (buf);
+			return(0);
+		}
+	}
+	return (0);
 }
 
 
