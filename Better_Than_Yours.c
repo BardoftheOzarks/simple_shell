@@ -11,6 +11,81 @@
 * Return: size
 */
 
+
+
+
+
+int main(void)
+{
+    int status = 1;
+    size_t size = 0;
+    char *buf = NULL;
+    char *prompt = "Sea-Shell>> ";
+    char *arg[10];
+    int str = 0;
+    pid_t pid;
+    char *fullcmd;
+    char *slash = "/";
+    char **path;
+    char *cmd; 
+
+while (status == 1)
+{
+    write(STDOUT_FILENO, prompt, 12);
+    getline(&buf, &size, stdin);
+
+pid = fork();
+
+    str = strlen(buf);
+    buf[str - 1] = '\0';
+    path = buffsplitter(buf);
+    cmd = path[0];
+    path[0] = env_path(cmd);
+    
+          
+    fullcmd = strcat(path[0], slash);
+    fullcmd = strcat(fullcmd, cmd);
+    
+
+    if (pid == 0)
+    {
+        arg[0] = path[0];
+        arg[1] = '\0';
+        execve (fullcmd, arg, environ);
+        exit(0);
+    }
+    
+    else
+    {
+        wait (NULL);
+    }
+
+
+
+    if (strcmp (buf, "exit") == 0 )
+    {
+        free (buf);
+        return (0);
+    }
+
+    if (feof(stdin))
+    {
+        free (buf);
+        return(0);
+    }
+    continue;
+}
+return (0);
+}
+
+
+
+
+
+
+
+
+
 /**
 char bin_func(char *txt)
 {
@@ -37,95 +112,7 @@ cmd[i + 1] = '\0';
 return (cmd);
 }
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-int main(int ac, char** av, char **env)
-{
-    int status = 1;
-    size_t size = 0;
-    char *buf = NULL;
-    char *prompt = "Sea-Shell>> ";
-    char *arg[10];
-    int str = 0;
-    pid_t pid;
-    
-    
-    (void)ac;
-    (void)av;
-    
-
-while (status == 1)
-{
-    write(STDOUT_FILENO, prompt, 12);
-    getline(&buf, &size, stdin);
-    str = strlen(buf);
-    buf[str - 1] = '\0';
-   
-
-    
-    pid = fork();
-
-if (pid == 0)
-{
-
-    arg[0] = "/bin";
-    arg[1] = '\0';
-
-    
-
-
-    execve (buf, arg, env);
-    exit(0);
-
-}
-else
-{
-    wait (NULL);
-}
-
-
-
-if (strcmp (buf, "exit") == 0 )
-{
-    free (buf);
-    return (0);
-}
-
-if (feof(stdin))
-{
-    free (buf);
-    return(0);
-}
-
-
-
-
-
-
-
-
-
-
-
 /**    
-
-
    if (fork () != 0)
     {
        wait(NULL);
@@ -139,9 +126,6 @@ if (feof(stdin))
 
     printf("%s", fullcmd);
     printf("%s", buf);
-
-    path = env_path(buf, env);
-    fullcmd = strcat(path, buf);
 
 char *fullcmd = "/bin/ls";
 
@@ -162,7 +146,4 @@ if (strcmp (buf, "/bin/ls") == 0)
 *   printf("%s", buf);
 *   printf("$>");
 */
-    continue;
-}
-return (0);
-}
+
