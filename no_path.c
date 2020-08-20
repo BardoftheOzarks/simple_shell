@@ -10,11 +10,10 @@
 char no_path(char *buf)
 {
     char **av = _calloc(ARG_MAX, sizeof(char *));
-    int i, j = 0;
+    int i;
 
 
         i = 0;
-        j = _strlen(buf);
         
         av[i] = strtok(buf, " "); /*write func _strtok*/
 		while (av[i] && i <= ARG_MAX)
