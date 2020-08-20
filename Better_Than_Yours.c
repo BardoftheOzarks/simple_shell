@@ -9,9 +9,9 @@
 */
 int main(void)
 {
-	int status, len, i;
+	int status, len;
 	size_t size = 0;
-	char *buf = NULL, **av = malloc(sizeof(char *) * ARG_MAX), *full, *path;
+	char *buf = NULL, **av = malloc(sizeof(char *) * ARG_MAX);
 	pid_t pid;
 
 	while (1)
@@ -23,13 +23,29 @@ int main(void)
 			break;
 		len = _strlen(buf);
 		buf[len - 1] = '\0';
-        if (buf[0] == '/' || buf[0] == ' ' || buf[0] == '.')
+
+		av = buf_splitter(buf);
+
+		pid = fork();
+		if (pid == 0)
+		{	execve(av[0], av, environ);
+			exit(0);
+		} else
+		{	free(buf);
+			buf = NULL;
+			wait(NULL); }}
+	return (0);
+}
+
+
+/**
+         if (buf[0] == '/' || buf[0] == ' ' || buf[0] == '.')
 		{
             no_path(buf);
 			continue;
 		}
 		i = 0;
-		av[i] = strtok(buf, " "); /*write func _strtok*/
+		av[i] = strtok(buf, " "); 
 		while (av[i] && i <= ARG_MAX)
 			av[++i] = strtok(NULL, " ");
 		av[i] = NULL;
@@ -39,15 +55,4 @@ int main(void)
 			break; }
 		full = _strcat(path, "/");
 		full = _strcat(full, av[0]);
-		pid = fork();
-		if (pid == 0)
-		{	execve(full, av, environ);
-			exit(0);
-		} else
-		{	free(buf);
-			buf = NULL;
-			free(path);
-			path = NULL;
-			wait(NULL); }}
-	return (0);
-}
+*/
