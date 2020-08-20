@@ -18,6 +18,7 @@ int main(void)
 	{
 		print("Sea-Shell$ ");
 		status = getline(&buf, &size, stdin);
+
 		if (status == -1)
 			break;
 		len = _strlen(buf);
@@ -45,6 +46,9 @@ int main(void)
 		} else
 		{
 			free(buf);
+			buf = NULL;
+			free(path);
+			path = NULL;
 			wait(NULL);
 		}
 	}

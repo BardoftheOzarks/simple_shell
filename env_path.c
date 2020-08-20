@@ -16,34 +16,36 @@
 char *env_path(char *cmd)
 {
 	int j = 0;
-	char *path;
-	const char de[2] = "=";
-	const char ds[2] = ":";
-	char *dir;
+	char *path, *dir, *answer;
 	DIR *dp;
 	struct dirent *entry;
 
 	while (environ[j] != NULL)
 	{
-		if (strncmp("PATH", environ[j], 3) == 0)
+		if (_strncmp("PATH", environ[j], 3) == 0)
 		{
-			path = environ[j];
-			dir = strtok(path, de);
+			path = _strdup(environ[j]);
+			dir = strtok(path, "=");
 
 			while (dir != NULL)
 			{
-				dir = strtok(NULL, ds);
+				dir = strtok(NULL, ":");
 				dp = opendir(dir);
 				while ((entry = readdir(dp)) != NULL)
 				{
 					if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
 						continue;
 					if (strcmp(cmd, entry->d_name) == 0)
-						return(dir);
+					{
+						answer = _strdup(dir);
+						free(path);
+						return (answer);
+					}
 				}
 				closedir(dp);
 			}
-			return(0);
+			free(path);
+			return (0);
 		}
 		j++;
 	}
