@@ -9,17 +9,28 @@
 */
 char no_path(char *buf)
 {
-    char **av = malloc(sizeof(char *) * ARG_MAX);
-    int i;
+    char **av = _calloc(ARG_MAX, sizeof(char *));
+    int i, j = 0;
 
 
         i = 0;
+        j = _strlen(buf);
+        
         av[i] = strtok(buf, " "); /*write func _strtok*/
+        printf("%d\n", j);
 		while (av[i] && i <= ARG_MAX)
+        {
+            
 			av[++i] = strtok(NULL, " ");
-		av[i] = NULL;
+        }
+		av[i] = '\0';
 
             execve(av[0], av, environ);
 			exit(0);
 			
 }
+
+/**
+ av[i] = malloc(sizeof(char) * j);
+ av[i] = malloc(sizeof(char) * j);
+ */
