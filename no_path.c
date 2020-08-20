@@ -17,7 +17,6 @@ char no_path(char *buf)
         j = _strlen(buf);
         
         av[i] = strtok(buf, " "); /*write func _strtok*/
-        printf("%d\n", j);
 		while (av[i] && i <= ARG_MAX)
         {
             
