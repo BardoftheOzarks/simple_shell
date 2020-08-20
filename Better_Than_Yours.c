@@ -19,18 +19,16 @@ int main(void)
 		if (isatty(0))
 			print("Sea-Shell$ ");
 		status = getline(&buf, &size, stdin);
-		if (status == -1)
+		if (status == -1 || _strncmp(buf, "exit", 4) == 0)
 			break;
 		len = _strlen(buf);
 		buf[len - 1] = '\0';
-		if (_strcmp(buf, "exit") == 0)
-			break;
 		i = 0;
 		av[i] = strtok(buf, " "); /*write func _strtok*/
 		while (av[i] && i <= ARG_MAX)
 			av[++i] = strtok(NULL, " ");
 		av[i] = NULL;
-		path = env_path(buf);
+		path = env_path(av[0]);
 		if (path == '\0' || path == NULL)
 		{	free(buf);
 			break; }
