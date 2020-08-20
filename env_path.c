@@ -33,9 +33,9 @@ char *env_path(char *cmd)
 				dp = opendir(dir);
 				while ((entry = readdir(dp)) != NULL)
 				{
-					if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+					if (_strcmp(entry->d_name, ".") == 0 || _strcmp(entry->d_name, "..") == 0)
 						continue;
-					if (strcmp(cmd, entry->d_name) == 0)
+					if (_strcmp(cmd, entry->d_name) == 0)
 					{
 						answer = _strdup(dir);
 						free(path);

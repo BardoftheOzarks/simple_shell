@@ -42,8 +42,8 @@ int main(void)
 		}
 		cmd = buf;
 
-		fullcmd = strcat(path, "/");
-		fullcmd = strcat(fullcmd, cmd);
+		fullcmd = _strcat(path, "/");
+		fullcmd = _strcat(fullcmd, cmd);
 
 		pid = fork();
 		if (pid == 0)

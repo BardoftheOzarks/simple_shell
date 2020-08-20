@@ -1,9 +1,19 @@
 #include "simple_shell.h"
-
-char *_strcat(char *first, char *second)
+/**
+ * _strcat - concatenates two strings
+ * @dest: destination string
+ * @src: source string
+ *
+ * Return: dest string
+ */
+char *_strcat(char *dest, char *src)
 {
+	int n, i = 0;
 
-  strcpy(first + _strlen(first), second);
-
-  return(first);
+	while (dest[i] != '\0')
+		i++;
+	for (n = 0; src[n] != '\0'; n++, i++)
+		dest[i] = src[n];
+	dest[i] = '\0';
+	return (dest);
 }
