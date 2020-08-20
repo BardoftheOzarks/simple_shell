@@ -9,9 +9,10 @@
 */
 int main(void)
 {
-	int status, len;
+	int status, len, i;
 	size_t size = 0;
-	char *buf = NULL, *arg[10], *fullcmd, *path, *cmd;
+	char *buf = NULL, **av = malloc(sizeof(char *) * ARG_MAX);
+	char *fullcmd, *path, *cmd;
 	pid_t pid;
 
 	while (1)
@@ -25,6 +26,13 @@ int main(void)
 		buf[len - 1] = '\0';
 		if (_strcmp(buf, "exit") == 0)
 			break;
+
+		i = 0;
+		av[i] = strtok(buf, " "); /*write func _strtok*/
+                while (av[i] && i <= ARG_MAX)
+                        av[++i] = strtok(NULL, " ");
+                av[i] = NULL;
+
 		path = env_path(buf);
 		if (path == '\0' || path == NULL)
 		{
@@ -39,9 +47,7 @@ int main(void)
 		pid = fork();
 		if (pid == 0)
 		{
-			arg[0] = "Hello";
-			arg[1] = '\0';
-			execve(fullcmd, arg, environ);
+			execve(fullcmd, av, environ);
 			exit(0);
 		} else
 		{
