@@ -25,6 +25,7 @@ int _strncmp(char *s1, char *s2, int n);
 char *_strdup(char *str);
 int _strlen(char *str);
 char *_strcat(char *dest, char *src);
+char no_path(char *buf);
 #endif
 
 #ifndef ARG_MAX

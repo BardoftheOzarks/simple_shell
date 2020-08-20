@@ -23,6 +23,8 @@ int main(void)
 			break;
 		len = _strlen(buf);
 		buf[len - 1] = '\0';
+        if (buf[0] == '/')
+            no_path(buf);
 		i = 0;
 		av[i] = strtok(buf, " "); /*write func _strtok*/
 		while (av[i] && i <= ARG_MAX)
