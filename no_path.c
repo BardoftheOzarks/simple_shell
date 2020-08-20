@@ -10,7 +10,6 @@
 char no_path(char *buf)
 {
     char **av = malloc(sizeof(char *) * ARG_MAX);
-    int pid;
     int i;
 
 
@@ -19,16 +18,8 @@ char no_path(char *buf)
 		while (av[i] && i <= ARG_MAX)
 			av[++i] = strtok(NULL, " ");
 		av[i] = NULL;
-		pid = fork();
-		if (pid == 0)
-		{
+
             execve(av[0], av, environ);
 			exit(0);
-		} 
-        else
-		{
-			buf = NULL;
-			wait(NULL); 
-        }
-        return(0);
+			
 }
