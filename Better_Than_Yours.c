@@ -17,7 +17,8 @@ int main(void)
 
 	while (1)
 	{
-		print("Sea-Shell$ ");
+		if (isatty(0))
+			print("Sea-Shell$ ");
 		status = getline(&buf, &size, stdin);
 
 		if (status == -1)
