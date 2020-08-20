@@ -26,7 +26,7 @@ int main(void)
     pid_t pid;
     char *fullcmd;
     char *slash = "/";
-    char **path;
+    char *path;
     char *cmd; 
 
 while (status == 1)
@@ -34,22 +34,27 @@ while (status == 1)
     write(STDOUT_FILENO, prompt, 12);
     getline(&buf, &size, stdin);
 
-pid = fork();
+
 
     str = strlen(buf);
     buf[str - 1] = '\0';
-    path = buffsplitter(buf);
-    cmd = path[0];
-    path[0] = env_path(cmd);
     
+    
+    path = env_path(buf);
+    if (path == '\0' || path == NULL)
+    {
+        free(buf);
+        break;
+    }
+    cmd = buf;
           
-    fullcmd = strcat(path[0], slash);
+    fullcmd = strcat(path, slash);
     fullcmd = strcat(fullcmd, cmd);
     
-
+    pid = fork();
     if (pid == 0)
     {
-        arg[0] = path[0];
+        arg[0] = "Hello";
         arg[1] = '\0';
         execve (fullcmd, arg, environ);
         exit(0);
@@ -57,7 +62,9 @@ pid = fork();
     
     else
     {
+        free(buf);
         wait (NULL);
+        
     }
 
 

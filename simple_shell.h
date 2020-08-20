@@ -1,5 +1,5 @@
-#ifndef SIMPLE_SHELL_H
-#define SIMPLE_SHELL_H
+#ifndef HOLBERTON_H
+#define HOLBERTON_H
 
 #include <stddef.h>
 #include <stdarg.h>
@@ -8,12 +8,13 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/wait.h>
 #include <fcntl.h>
 #include <unistd.h> 
 
-char *env_path(char *cmd, char **env);
+ssize_t read_textfile(const char *filename, size_t letters);
+int create_file(const char *filename, char *text_content);
+int append_text_to_file(const char *filename, char *text_content);
 
 
 
-#endif /* SIMPLE_SHELL_H */
+#endif /* HOLBERTON_H */

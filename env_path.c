@@ -28,14 +28,11 @@ while (environ[j] != NULL)
     if (strncmp("PATH", environ[j], 3) == 0)
     {
         path = environ[j];
-        printf("%s\n", path);
         dir = strtok(path, de);
         
          while (dir != NULL)
         {
-            dir = strtok(NULL, ds);
-            printf("%s\n", dir);
-                           
+            dir = strtok(NULL, ds);            
             dp = opendir(dir);
             while ((entry = readdir(dp)) != NULL)
             {
@@ -49,7 +46,7 @@ while (environ[j] != NULL)
             }
             closedir(dp);
         }
-        
+        return(0);
     }
     j++;
 }
@@ -106,7 +103,7 @@ printf("envpath loop failure");
 char *env_path(char *cmd, char **env)
 */
 
-
+/**
 
 char **buffsplitter(char *str)
 {
@@ -127,7 +124,7 @@ char **buffsplitter(char *str)
 token[2] = '\0';
 return(token);
 }
-
+*/
 
 /**
      while(token[t] != NULL)
@@ -136,4 +133,8 @@ return(token);
         token[t] = strdup(temp);
         t++;
     }
+
+char **buffsplitter(char *str);
+
+
 */
