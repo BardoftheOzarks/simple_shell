@@ -17,7 +17,7 @@ char *env_path(char *cmd)
 	for (j = 0; environ[j] != NULL; j++)
 		if (_strncmp("PATH", environ[j], 4) == 0)
 		{
-			path = environ[j];
+			path = _strdup(environ[j]);
 			break;
 		}
 	dir = strtok(path, "=");
@@ -32,6 +32,7 @@ char *env_path(char *cmd)
 			if (_strcmp(cmd, entry->d_name) == 0)
 			{
 				closedir(dp);
+				free(path);
 				return (dir);
 			}
 			closedir(dp);
