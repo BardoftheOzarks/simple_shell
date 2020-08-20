@@ -1,11 +1,16 @@
 #include "simple_shell.h"
+#include <stdlib.h>
+#include <stdarg.h>
+#include <stdio.h>
 #include <dirent.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include <errno.h>
-/**
- * env_path - gets the correct path
- * @cmd: argv[0]
- * Return: string with correct path
- */
+
+
+
 char *env_path(char *cmd)
 {
     int j = 0;
@@ -45,5 +50,5 @@ while (environ[j] != NULL)
     }
     j++;
 }
-  return(0);
+return (0);
 }

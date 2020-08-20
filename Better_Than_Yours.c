@@ -1,11 +1,22 @@
-#include "cshell.h"
+#include "simple_shell.h"
+#include <stdlib.h>
+#include <stdarg.h>
+#include <stdio.h>
+
 /**
-* main - it's a shell. Live with it.
-* Return: always 0
+* main - function
+* description: print
+* @ac: lists
+* @av: stuff
+* Return: size
 */
+
+
+
+
+
 int main(void)
 {
-
     int status = 1;
     size_t size = 0;
     char *buf = NULL;
@@ -73,5 +84,3 @@ while (status == 1)
 }
 return (0);
 }
-
-
