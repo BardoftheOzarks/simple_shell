@@ -1,1 +1,22 @@
-It's a man page!
+.TH Sea-shell 1 "19 August 2020" "version 1.0"
+
+.SH NAME
+ Sea-Shell
+
+.SH SYNOPSIS
+#include "simple_shell.h"
+interactive - cmd options
+non interactive - echo "cmd/options" | ./prompt
+
+.SH DESCRIPTION
+Sea-Shell is an interactive as well as a non-interactive program that can be given commands to exectue from anything within the system path. 
+
+.SH RETURN VALUE
+Upon successful return this function will return 0. 
+
+.SH EXAMPLE
+Sea-Shell$ ls -l -a
+(Prints a long form list of files in current directory with hidden files and folders.)
+
+#include "simple_shell.h"
+_printf("Character:[%c]\n", 'H');

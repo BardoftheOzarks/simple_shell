@@ -26,6 +26,7 @@ char *_strdup(char *str);
 int _strlen(char *str);
 char *_strcat(char *dest, char *src);
 char no_path(char *buf);
+void *_calloc(unsigned int nmemb, unsigned int size);
 #endif
 
 #ifndef ARG_MAX
