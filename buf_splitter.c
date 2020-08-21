@@ -11,7 +11,7 @@
 char **buf_splitter(char *buf)
 {
     char **av = _calloc(ARG_MAX, sizeof(char *));
-    char *cmd;
+    char *cmd, *free_ptr;
     int i; 
 
         if (buf[0] == '/' || buf[0] == ' ' || buf[0] == '.')
@@ -35,19 +35,25 @@ char **buf_splitter(char *buf)
 		while (av[i] && i <= ARG_MAX)
         {
             av[++i] = strtok(NULL, " ");
-            printf("%s\n", av[i]);
-            printf("%s\n", av[i]);
             
         }
 		av[i] = '\0';
+        
 		av[0] = env_path(av[0]);
+        
 		if (av[0] == '\0' || av[0] == NULL)
 		{	
             free_grid(av);
 			EXIT_FAILURE; 
         }
+        
+        free_ptr = av[0];
+
 		av[0] = _strcat(av[0], "/");
+        free(free_ptr);
+        free_ptr = av[0];
 		av[0] = _strcat(av[0], cmd);
+        free(free_ptr);
         x = i;
         return(av);
 }
