@@ -10,12 +10,14 @@
 int main(void)
 {
 	int status, len;
-	size_t size = 0;
+	size_t size = 1024;
 	char *buf = NULL, **av;
 	pid_t pid;
 
+	buf = malloc(sizeof(char) * size);
 	while (1)
 	{
+
 		if (isatty(0))
 			print("$ ");
 		status = getline(&buf, &size, stdin);
@@ -32,9 +34,8 @@ int main(void)
 		}
 		else
 			wait(NULL);
-		free(buf);
-		buf = NULL;
 		free_grid(&av);
 	}
+	free(buf);
 	return (0);
 }
