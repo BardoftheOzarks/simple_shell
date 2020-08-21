@@ -7,6 +7,8 @@
 * main - It's a shell
 * Return: Nothing, it's an empty shell
 */
+
+
 int main(void)
 {
 	int status, len;
@@ -20,7 +22,10 @@ int main(void)
 			print("Sea-Shell$ ");
 		status = getline(&buf, &size, stdin);
 		if (status == -1 || _strncmp(buf, "exit", 4) == 0)
+		{
+			
 			break;
+		}
 		len = _strlen(buf);
 		buf[len - 1] = '\0';
 
@@ -28,12 +33,18 @@ int main(void)
 
 		pid = fork();
 		if (pid == 0)
-		{	execve(av[0], av, environ);
+		{	
+			execve(av[0], av, environ);
 			exit(0);
-		} else
-		{	free(buf);
+		} 
+		else
+		{	
+			wait(NULL);
+			free(buf);
 			buf = NULL;
-			wait(NULL); }}
+			free_grid(av);
+		}
+	}
 	return (0);
 }
 
