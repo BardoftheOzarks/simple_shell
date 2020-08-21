@@ -33,6 +33,7 @@ int main(void)
 		else
 			wait(NULL);
 		free(buf);
+		buf = NULL;
 		free_grid(&av);
 	}
 	return (0);
