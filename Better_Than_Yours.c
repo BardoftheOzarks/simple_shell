@@ -17,7 +17,7 @@ int main(void)
 	while (1)
 	{
 		if (isatty(0))
-			print("$ ");
+			print("Sea-Shell$ ");
 		status = getline(&buf, &size, stdin);
 		if (status == -1 || _strncmp(buf, "exit", 4) == 0)
 			break;
