@@ -8,18 +8,20 @@
 * Return: value or error
 */
 
-void free_grid(char **av)
+void free_grid(char ***av)
 {
-        int tall;
-    printf("x = %d\n", x);
-    if (av == NULL)
+        int i = 0;
+
+    if (*av == NULL)
         return;
-    for (tall = x; tall >= 0; tall--)
+
+    while((*av)[i] != NULL)
     {
-        printf("tall = %d, av[tall] = %s \n", tall, av[tall]);
-        free(av[tall]);
+        free((*av)[i]);
+        i++;
     }
-    free(av[0]);
+
+    free(*av);
     return;
 }
 

@@ -19,7 +19,7 @@ int main(void)
 	while (1)
 	{
 		if (isatty(0))
-			print("Sea-Shell$ ");
+			print("$ ");
 		status = getline(&buf, &size, stdin);
 		if (status == -1 || _strncmp(buf, "exit", 4) == 0)
 		{
@@ -30,26 +30,19 @@ int main(void)
 		buf[len - 1] = '\0';
 
 		av = buf_splitter(buf);
-
 		pid = fork();
 		if (pid == 0)
 		{	
 			execve(av[0], av, environ);
-			free(buf);
-			free(av);
 			exit(0);
 		} 
 		else
 		{	
 			wait(NULL);
-			free(buf);
-			buf = NULL;
-			free(av[0]);
-			free(av);
 		}
+		free(buf);
+		free_grid(&av);
 	}
-	free(buf);
-	free(av);
 	return (0);
 }
 

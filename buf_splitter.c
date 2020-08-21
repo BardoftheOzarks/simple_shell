@@ -10,21 +10,26 @@
 
 char **buf_splitter(char *buf)
 {
-    char **av = _calloc(ARG_MAX, sizeof(char *));
-    char *cmd, *free_ptr;
+    char **av = malloc(sizeof(char *) * 10);
+    char *cmd, *free_ptr, *temp;
     int i; 
 
         if (buf[0] == '/' || buf[0] == ' ' || buf[0] == '.')
 		{
             i = 0;
         
-            av[i] = strtok(buf, " "); /*write func _strtok*/
-		    while (av[i] && i <= ARG_MAX)
+            temp = strtok(buf, " ");
+            av[i] = _strdup(temp);
+            i++;
+		    while (i < 10)
             {
-                av[++i] = strtok(NULL, " ");
+                temp = strtok(NULL, " ");
+                if (temp == NULL)
+                    break;
+                av[i] = _strdup(temp);
+                i++;
             }
-		    av[i] = '\0';
-            x = i;
+            av[i] = NULL;
             return(av);
 		}
 		
@@ -43,7 +48,7 @@ char **buf_splitter(char *buf)
         
 		if (av[0] == '\0' || av[0] == NULL)
 		{	
-            free_grid(av);
+            free_grid(&av);
 			EXIT_FAILURE; 
         }
         
@@ -54,7 +59,7 @@ char **buf_splitter(char *buf)
         free_ptr = av[0];
 		av[0] = _strcat(av[0], cmd);
         free(free_ptr);
-        x = i;
+    
         return(av);
 }
 
