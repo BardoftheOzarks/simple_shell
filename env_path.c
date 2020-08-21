@@ -39,6 +39,7 @@ char *env_path(char *cmd)
 					{
 						answer = _strdup(dir);
 						free(path);
+						closedir(dp);
 						return (answer);
 					}
 				}

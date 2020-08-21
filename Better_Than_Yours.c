@@ -13,7 +13,7 @@ int main(void)
 {
 	int status, len;
 	size_t size = 0;
-	char *buf = NULL, **av = malloc(sizeof(char *) * ARG_MAX);
+	char *buf = NULL, **av;
 	pid_t pid;
 
 	while (1)
@@ -35,6 +35,8 @@ int main(void)
 		if (pid == 0)
 		{	
 			execve(av[0], av, environ);
+			free(buf);
+			free(av);
 			exit(0);
 		} 
 		else
@@ -42,9 +44,12 @@ int main(void)
 			wait(NULL);
 			free(buf);
 			buf = NULL;
-			free_grid(av);
+			free(av[0]);
+			free(av);
 		}
 	}
+	free(buf);
+	free(av);
 	return (0);
 }
 
