@@ -29,7 +29,8 @@ int _strlen(char *str);
 char *_strcat(char *dest, char *src);
 void *_calloc(unsigned int nmemb, unsigned int size);
 char **buf_splitter(char *buf);
-void free_grid(char **grid);
+void free_grid(char ***grid);
+void print_tokens(char **t);
 #endif
 
 #ifndef ARG_MAX
