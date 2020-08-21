@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <stdio.h>
-
 /**
  * buf_splitter - tokates input string
  * @buf: input string
@@ -12,14 +11,12 @@ char **buf_splitter(char *buf)
 {
 	char **av = malloc(sizeof(char *) * 10);
 	char *cmd, *free_ptr, *temp;
-	int i;
+	int i = 0;
 
 	if (buf[0] == '/' || buf[0] == ' ' || buf[0] == '.')
-	{	i = 0;
-		temp = strtok(buf, " ");
+	{	temp = strtok(buf, " ");
 		av[i] = _strdup(temp);
-		i++;
-		while (i < 10)
+		while (++i < 10)
 		{	temp = strtok(NULL, " ");
 			if (temp == NULL)
 				break;
@@ -28,20 +25,15 @@ char **buf_splitter(char *buf)
 		av[i] = NULL;
 		return (av);	}
 	i = 0;
-	
-    temp = strtok(buf, " ");
-    av[i] = _strdup(temp);
+	temp = strtok(buf, " ");
+	av[i] = _strdup(temp);
 	cmd = av[i];
-    i++;
-	while (i < 10)
-    {
-		temp = strtok(NULL, " ");
-        if (temp == NULL)
-            break;
-        av[i] = _strdup(temp);
-        i++;
-    }
-    av[i] = NULL;
+	while (++i < 10)
+	{	temp = strtok(NULL, " ");
+		if (temp == NULL)
+			break;
+		av[i] = _strdup(temp);	}
+	av[i] = NULL;
 	av[0] = env_path(av[0]);
 	if (av[0] == '\0' || av[0] == NULL)
 	{	free_grid(&av);
@@ -52,7 +44,7 @@ char **buf_splitter(char *buf)
 	free_ptr = av[0];
 	av[0] = _strcat(av[0], cmd);
 	free(free_ptr);
-    free(cmd);
-    free(temp);
+	free(cmd);
+	free(temp);
 	return (av);
 }
