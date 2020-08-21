@@ -1,35 +1,22 @@
 #include "simple_shell.h"
 
 /**
-* free_grid - free malloc
-* description: free grid
-* @grid: int
-* @height: int
-* Return: value or error
-*/
+ * free_grid - free malloc
+ * @av: array of pointers to free
+ * Return: always 0
+ */
 
-void free_grid(char ***av)
+int free_grid(char ***av)
 {
-        int i = 0;
+	int i = 0;
 
-    if (*av == NULL)
-        return;
-
-    while((*av)[i] != NULL)
-    {
-        free((*av)[i]);
-        i++;
-    }
-
-    free(*av);
-    return;
+	if (*av == NULL)
+		return (0);
+	while ((*av)[i] != NULL)
+	{
+		free((*av)[i]);
+		i++;
+	}
+	free(*av);
+	return (0);
 }
-
-
-/**
-    free(av[5]);
-    free(av[4]);
-    free(av[3]);
-    free(av[2]);
-    free(av[1]);
-*/

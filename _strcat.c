@@ -17,15 +17,10 @@ char *_strcat(char *dest, char *src)
 	j = _strlen(src);
 
 	temp = malloc(sizeof(char) * (i + j) + 1);
-		
 	for (n = 0; dest[n] != '\0'; n++)
 		temp[n] = dest[n];
-	
 	for (j = 0; src[j] != '\0'; n++, j++)
 		temp[n] = src[j];
-	
 	temp[n] = '\0';
-	
 	return (temp);
-
 }

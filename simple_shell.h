@@ -15,7 +15,6 @@
 #include <limits.h>
 #include <errno.h>
 #include <signal.h>
-int x;
 
 extern char **environ;
 char *env_path(char *cmd);
@@ -29,7 +28,7 @@ int _strlen(char *str);
 char *_strcat(char *dest, char *src);
 void *_calloc(unsigned int nmemb, unsigned int size);
 char **buf_splitter(char *buf);
-void free_grid(char ***grid);
+int free_grid(char ***grid);
 void print_tokens(char **t);
 #endif
 

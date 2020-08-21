@@ -9,14 +9,16 @@ interactive - cmd options
 non interactive - echo "cmd/options" | ./prompt
 
 .SH DESCRIPTION
-Sea-Shell is an interactive as well as a non-interactive program that can be given commands to exectue from anything within the system path. 
+Sea-Shell is an interactive as well as a non-interactive program that can be
+given commands to exectue from anything within the system path.
 
 .SH RETURN VALUE
-Upon successful return this function will return 0. 
+Upon successful return this function will return 0.
 
 .SH EXAMPLE
 Sea-Shell$ ls -l -a
-(Prints a long form list of files in current directory with hidden files and folders.)
+(Prints a long form list of files in current directory with hidden files and
+folders.)
 
 #include "simple_shell.h"
 _printf("Character:[%c]\n", 'H');
