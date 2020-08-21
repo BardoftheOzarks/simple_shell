@@ -12,7 +12,7 @@ char **buf_splitter(char *buf)
 {
     char **av = _calloc(ARG_MAX, sizeof(char *));
     char *cmd;
-    int i;
+    int i; 
 
         if (buf[0] == '/' || buf[0] == ' ' || buf[0] == '.')
 		{
@@ -24,7 +24,7 @@ char **buf_splitter(char *buf)
                 av[++i] = strtok(NULL, " ");
             }
 		    av[i] = '\0';
-
+            x = i;
             return(av);
 		}
 		
@@ -33,17 +33,26 @@ char **buf_splitter(char *buf)
         av[i] = strtok(buf, " "); /*write func _strtok*/
         cmd = av[0];
 		while (av[i] && i <= ARG_MAX)
-			av[++i] = strtok(NULL, " ");
+        {
+            av[++i] = strtok(NULL, " ");
+            printf("%s\n", av[i]);
+            printf("%s\n", av[i]);
+            
+        }
 		av[i] = '\0';
 		av[0] = env_path(av[0]);
 		if (av[0] == '\0' || av[0] == NULL)
 		{	
-            free(av);
+            free_grid(av);
 			EXIT_FAILURE; 
         }
 		av[0] = _strcat(av[0], "/");
 		av[0] = _strcat(av[0], cmd);
-
+        x = i;
         return(av);
 }
 
+/**
+ av[i] = _calloc(j, sizeof(char));
+ j = _strlen(temp);
+ */
