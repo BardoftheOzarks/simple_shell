@@ -20,8 +20,7 @@ char **buf_splitter(char *buf)
 		{	temp = strtok(NULL, " ");
 			if (temp == NULL)
 				break;
-			av[i] = _strdup(temp);
-			i++;	}
+			av[i] = _strdup(temp);	}
 		av[i] = NULL;
 		return (av);	}
 	i = 0;
